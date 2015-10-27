@@ -15,7 +15,7 @@ func main() {
 	http.HandleFunc("/test", hello)
 	http.HandleFunc("/api/getOutstandingGivers", getOutstandingGivers)
 	http.HandleFunc("/api/getOutstandingReceivers", getOutstandingReceivers)
-	http.HandleFunc("/api/getSpouceId", getSpouceId)
+	http.HandleFunc("/api/getSpouseId", getSpouseId)
 	http.HandleFunc("/api/submitSelection", postSelection)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, r.URL.Path[1:])
@@ -93,7 +93,7 @@ func postSelection( res http.ResponseWriter, req *http.Request){
 		con, _ := sql.Open("mysql", dsn)
 		randomFlag := 0
 		if receiver_id == "" || receiver_id == "null" || receiver_id == "0"{
-			con.QueryRow("SELECT person.id receiver_id FROM person LEFT JOIN selection ON person.id = selection.receiver_id WHERE selection.receiver_id IS NULL AND person.id !=? ORDER BY RAND() LIMIT 0 , 1", giver_id).Scan(&receiver_id)
+			con.QueryRow("SELECT person.id receiver_id FROM person LEFT JOIN selection ON person.id = selection.receiver_id WHERE selection.receiver_id IS NULL AND ? NOT IN (person.id, person.spouse_id) ORDER BY RAND() LIMIT 0 , 1", giver_id).Scan(&receiver_id)
 			randomFlag = 1
 		} else {
 			if hasReceiverBeenSelected(receiver_id) {
@@ -112,14 +112,14 @@ func postSelection( res http.ResponseWriter, req *http.Request){
 	}
 }
 
-func getSpouceId( res http.ResponseWriter, req *http.Request){
+func getSpouseId( res http.ResponseWriter, req *http.Request){
 	giver_id := req.FormValue("giver_id")
 	con, _ := sql.Open("mysql", dsn)
 	defer con.Close()
-	spouce_id := 0
-	con.QueryRow("SELECT `spouce_id` spouce_id FROM `person` WHERE id = ?", giver_id).Scan(&spouce_id)
+	spouse_id := 0
+	con.QueryRow("SELECT `spouse_id` spouse_id FROM `person` WHERE id = ?", giver_id).Scan(&spouse_id)
 	res.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(res, "{\"spouce_id\":\"%v\"}", spouce_id)
+	fmt.Fprintf(res, "{\"spouse_id\":\"%v\"}", spouse_id)
 }
 
 func hasGiverSelected( giver_id string) bool{
