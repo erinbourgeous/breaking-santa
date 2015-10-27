@@ -119,7 +119,7 @@ func getSpouceId( res http.ResponseWriter, req *http.Request){
 	spouce_id := 0
 	con.QueryRow("SELECT `spouce_id` spouce_id FROM `person` WHERE id = ?", giver_id).Scan(&spouce_id)
 	res.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(res, "{\"spouce_id\":\"%s\"}", spouce_id)
+	fmt.Fprintf(res, "{\"spouce_id\":\"%v\"}", spouce_id)
 }
 
 func hasGiverSelected( giver_id string) bool{
