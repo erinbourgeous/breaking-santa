@@ -60,7 +60,13 @@ $(document).ready(function(){
 			giver_id = this.id;
 			$('#giverID').val(this.id);
 			$('#giversList li').removeClass('selected');
-      		$(this).addClass('selected');
+			$(this).addClass('selected');
+			
+			$('#receiversList li').show();
+        		$('#receiversList').children('#'+giver_id).hide();
+        		$.ajax({url:'api/getSpouseId', data: {'giver_id':giver_id}, async:false, dataType: 'json', success:function(spouseId){
+        			$('#receiversList').children('#'+spouseId.spouse_id).hide();
+			}});
 		});
 
 		$('#receiversList li').click(function(){
