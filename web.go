@@ -40,8 +40,8 @@ func hello(res http.ResponseWriter, req *http.Request) {
 }
 
 var sock = os.Getenv("OPENSHIFT_MYSQL_DB_SOCKET")
-var authorization = os.Getenv("OPENSHIFT_MYSQL_DB_URL")
-authorization = authorization[8:strings.Index(authorization,"@")]
+var db_url = os.Getenv("OPENSHIFT_MYSQL_DB_URL")
+var authorization = db_url[8:strings.Index(db_url,"@")]
 var database = os.Getenv("OPENSHIFT_GEAR_NAME")
 var dsn = authorization +"@unix(" + sock  + ")/" + database
 func getOutstandingGivers( res http.ResponseWriter, req *http.Request) {
