@@ -78,11 +78,9 @@ p {
 	opacity: 0.4
 }
 .selected {
-	background: #0a2653;
-	color:#0a2653;
+	background: #455d83;
+	color:#455d83;
 }
-
-
 
 .divider {
     border: 0;
