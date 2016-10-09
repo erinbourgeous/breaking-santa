@@ -9,14 +9,6 @@ $(document).ready(function(){
 		$("#giversList").append(outstandingGivers);
   	}});
 
-  	/*$.getJSON('api/getOutstandingGivers', function(jsonGivers) {
-  		var outstandingGivers = '';
-  		$.each(jsonGivers.outstanding, function(index, person){
-    		outstandingGivers += "<li id=\"" + person.id + "\">" + person.name + "</li>";
-		});
-		$("#giversList").append(outstandingGivers);
-    });*/
-
     $.ajax({url:'api/getOutstandingReceivers', async:false, dataType: 'json', success:function(jsonReceivers){
   		var outstandingReceivers = '';
   		$.each(jsonReceivers.outstanding, function(index, person){
