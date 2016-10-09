@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 	"net/http"
 	"os"
 	"io/ioutil"
@@ -38,10 +39,10 @@ func hello(res http.ResponseWriter, req *http.Request) {
 }
 
 var sock = os.Getenv("OPENSHIFT_MYSQL_DB_SOCKET")
-var database = "breakingsanta"
-var user = "admin67edHpl"
-var password = "NU9_4Y7hwzxi"
-var dsn = user + ":" + password +"@unix(" + sock  + ")/" + database
+var authorization = os.Getenv("OPENSHIFT_MYSQL_DB_URL")
+authorization = authorization[8:strings.Index(authorization,"@")]
+var database = os.Getenv("OPENSHIFT_GEAR_NAME")
+var dsn = authorization +"@unix(" + sock  + ")/" + database
 func getOutstandingGivers( res http.ResponseWriter, req *http.Request) {
 	con, _ := sql.Open("mysql", dsn)
 	defer con.Close()
@@ -101,9 +102,9 @@ func postSelection( res http.ResponseWriter, req *http.Request){
 							return
 					}
 		}
-		
+
 		_, _ = con.Exec("INSERT INTO `selection`(`giver_id`, `receiver_id`, `random`) VALUES (?, ?, ?)", giver_id, receiver_id, randomFlag)
-		
+
 		receiver_name := ""
 		con.QueryRow("SELECT name receiver_name FROM person WHERE id=?", receiver_id).Scan(&receiver_name)
 		res.Header().Set("Content-Type", "application/json")
