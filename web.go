@@ -39,11 +39,10 @@ func hello(res http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(res, dsn)
 }
 
-var sock = os.Getenv("OPENSHIFT_MYSQL_DB_SOCKET")
-var db_url = os.Getenv("OPENSHIFT_MYSQL_DB_URL")
-var authorization = db_url[8:strings.Index(db_url,"@")]
-var database = os.Getenv("OPENSHIFT_GEAR_NAME")
-var dsn = authorization +"@unix(" + sock  + ")/" + database
+
+var user = os.Getenv("MYSQL_USER")
+var database = os.Getenv("MYSQL_DB")
+var dsn = user +"@tcp(localhost)/" + database
 func getOutstandingGivers( res http.ResponseWriter, req *http.Request) {
 	con, _ := sql.Open("mysql", dsn)
 	defer con.Close()
