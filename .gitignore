@@ -1,0 +1,4 @@
+*.psd
+.idea/*
+*.iml
+.DS_Store
