@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
