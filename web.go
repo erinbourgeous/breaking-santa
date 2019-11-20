@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"database/sql"
 )
+import _ "github.com/go-sql-driver/mysql"
 
 func main() {
 	http.HandleFunc("/test", hello)
@@ -40,7 +41,7 @@ func hello(res http.ResponseWriter, req *http.Request) {
 
 var user = os.Getenv("MYSQL_USER")
 var database = os.Getenv("MYSQL_DB")
-var dsn = user +"@tcp(localhost)/" + database
+var dsn = user+":password" +"@tcp(127.0.0.1)/" + database
 func getOutstandingGivers( res http.ResponseWriter, req *http.Request) {
 	con, _ := sql.Open("mysql", dsn)
 	defer con.Close()
