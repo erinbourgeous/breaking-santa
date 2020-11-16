@@ -25,3 +25,12 @@ CREATE TABLE IF NOT EXISTS `selection` (
   PRIMARY KEY (`id`)
 );
 
+
+USE bourgeous;
+SELECT p1.name as Giver, p2.name as Receiver
+FROM selection 
+	JOIN person p1 ON p1.id=selection.giver_id
+	JOIN person p2 ON p2.id=selection.receiver_id;
+	
+	
+

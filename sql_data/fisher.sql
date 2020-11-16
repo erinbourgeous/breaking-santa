@@ -23,6 +23,7 @@ SET time_zone = "+00:00";
 --
 -- Dumping data for table `person`
 --
+TRUNCATE `fisher`.`person`;
 
 INSERT INTO `person` (`id`, `name`, `spouse_id`) VALUES
 (1, 'Devin', 2),
