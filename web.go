@@ -8,8 +8,8 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
 )
+import _ "github.com/go-sql-driver/mysql"
 
 func main() {
 	http.HandleFunc("/test", hello)
@@ -38,11 +38,10 @@ func hello(res http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(res, dsn)
 }
 
-var sock = os.Getenv("OPENSHIFT_MYSQL_DB_SOCKET")
-var database = "2015"
-var user = "adminx2ccYDg"
-var password = "gbxXdaYURc-A"
-var dsn = user + ":" + password +"@unix(" + sock  + ")/" + database
+
+var user = os.Getenv("MYSQL_USER")
+var database = os.Getenv("MYSQL_DB")
+var dsn = user+":password" +"@tcp(127.0.0.1)/" + database
 func getOutstandingGivers( res http.ResponseWriter, req *http.Request) {
 	con, _ := sql.Open("mysql", dsn)
 	defer con.Close()
