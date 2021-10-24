@@ -31,6 +31,12 @@ Fisher Family
 Site passwords
 /etc/nginx/.htpasswd
 
+Reset passwords
+cat /dev/null > .htpasswd
+htpasswd -c /etc/nginx/.htpasswd bourgeous
+htpasswd -c /etc/nginx/.htpasswd fisherelli
+
+
 service nginx status
  
 docker run --name breaking-santa-bourgeous   -d   -v /opt/breaking-santa:/go/src/breaking-santa   -w /go/src/breaking-santa   --network="host"   --expose 8080 -p 8080:8080   --env MYSQL_DB=bourgeous   --env PORT=8080 breaking-santa
