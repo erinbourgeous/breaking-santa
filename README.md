@@ -1,4 +1,52 @@
-Last years picks:
+2021 Picks:
++--------+----------+
+| Giver  | Receiver |
++--------+----------+
+| Gina   | Dad      |
+| Erin   | Gina     |
+| Devin  | Lori     |
+| Brett  | Mom      |
+| Megan  | Erin     |
+| Lori   | Brett    |
+| Drew   | Devin    |
+| Mom    | Megan    |
+| Curtis | Drew     |
+| Dad    | Curtis   |
++--------+----------+
+
+2020 Picks:
+
+Bourgeous Family
++--------+----------+
+| Giver  | Receiver |
++--------+----------+
+| Devin  | Brett    |
+| Drew   | Erin     |
+| Erin   | Dad      |
+| Megan  | Gina     |
+| Gina   | Devin    |
+| Brett  | Drew     |
+| Mom    | Lori     |
+| Lori   | Mom      |
+| Curtis | Megan    |
++--------+----------+
+
+Fisher Family
++-------+----------+
+| Giver | Receiver |
++-------+----------+
+| Ky    | Shann    |
+| Mari  | Erin     |
+| Will  | Chad     |
+| Erin  | Mari     |
+| Shann | Devin    |
+| Chad  | Will     |
+| Devin | Anjai    |
+| Anjai | Ky       |
++-------+----------+
+
+
+2019 picks:
 
 Bourgeous Family
 +-------+----------+
@@ -30,6 +78,14 @@ Fisher Family
 
 Site passwords
 /etc/nginx/.htpasswd
+
+Reset passwords
+cat /dev/null > .htpasswd
+htpasswd -c /etc/nginx/.htpasswd bourgeous
+htpasswd -c /etc/nginx/.htpasswd fisherelli
+
+RedLight123
+
 
 service nginx status
  
